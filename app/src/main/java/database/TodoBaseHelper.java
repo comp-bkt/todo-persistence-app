@@ -18,11 +18,11 @@ public class TodoBaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("create table " + TodoTable.NAME + "(" +
-                        TodoTable.Cols.UUID + ", " +
-                        TodoTable.Cols.TITLE + ", " +
-                        TodoTable.Cols.DETAIL + ", " +
-                        TodoTable.Cols.DATE + ", " +
-                        TodoTable.Cols.IS_COMPLETE + ")"
+                        TodoTable.Cols.UUID + " TEXT, " +
+                        TodoTable.Cols.TITLE + " TEXT, " +
+                        TodoTable.Cols.DETAIL + " TEXT, " +
+                        TodoTable.Cols.DATE + " DATE, " +
+                        TodoTable.Cols.IS_COMPLETE + " INTEGER)"
         );
     }
 
