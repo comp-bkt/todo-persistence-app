@@ -1,7 +1,6 @@
 package com.example.todolistapp;
 
 import android.app.Activity;
-import android.drm.DrmStore;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Point;
