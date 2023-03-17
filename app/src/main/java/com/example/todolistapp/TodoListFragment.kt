@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView.ViewHolder
 
 class TodoListFragment : Fragment() {
     private var mTodoRecyclerView: RecyclerView? = null
-    var mTodoAdapter: TodoAdapter? = null
+    private var mTodoAdapter: TodoAdapter? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -23,7 +23,7 @@ class TodoListFragment : Fragment() {
                               container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_todo_list, container, false)
-        mTodoRecyclerView = view.findViewById<View>(R.id.todo_recycler_view) as RecyclerView
+        mTodoRecyclerView = view.findViewById(R.id.todo_recycler_view)
         mTodoRecyclerView!!.layoutManager = LinearLayoutManager(activity)
         updateUI()
         return view
@@ -58,8 +58,8 @@ class TodoListFragment : Fragment() {
 
         init {
             itemView.setOnClickListener(this)
-            mTextViewTitle = itemView.findViewById<View>(R.id.todo_title) as TextView
-            mTextViewDate = itemView.findViewById<View>(R.id.todo_date) as TextView
+            mTextViewTitle = itemView.findViewById(R.id.todo_title)
+            mTextViewDate = itemView.findViewById(R.id.todo_date)
         }
 
         override fun onClick(view: View) {

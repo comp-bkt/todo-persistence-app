@@ -79,11 +79,11 @@ class TodoFragment : Fragment() {
                 // This line is intentionally left blank
             }
         })
-        mButtonDate = view.findViewById<View>(R.id.todo_date) as Button
+        mButtonDate = view.findViewById(R.id.todo_date)
         mButtonDate.setText(mTodo!!.date.toString())
-        mButtonDate!!.isEnabled = false
-        mCheckBoxIsComplete = view.findViewById<View>(R.id.todo_complete) as CheckBox
-        mCheckBoxIsComplete!!.setOnCheckedChangeListener { buttonView, isChecked ->
+        mButtonDate.isEnabled = false
+        mCheckBoxIsComplete = view.findViewById(R.id.todo_complete)
+        mCheckBoxIsComplete.setOnCheckedChangeListener { buttonView, isChecked ->
             Log.d("DEBUG **** TodoFragment", "called onCheckedChanged")
             mTodo!!.isComplete = if (isChecked == true) true else false
         }
@@ -92,7 +92,7 @@ class TodoFragment : Fragment() {
         val captureImage = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         val packageManager = requireActivity().packageManager
         val canTakePhoto = mPhotoFile != null && packageManager.hasSystemFeature(PackageManager.FEATURE_CAMERA_ANY)
-        mPhotoButton!!.isEnabled = canTakePhoto
+        mPhotoButton.isEnabled = canTakePhoto
         val todoTakePicture = registerForActivityResult<Uri, Boolean>(
                 ActivityResultContracts.TakePicture()
         ) { result: Boolean ->
@@ -106,7 +106,7 @@ class TodoFragment : Fragment() {
                 return@registerForActivityResult
             }
         }
-        mPhotoButton!!.setOnClickListener {
+        mPhotoButton.setOnClickListener {
             if (checkCameraPermission()) {
                 val uri = FileProvider.getUriForFile(activity!!,
                         "com.example.todolistapp.fileprovider",
@@ -133,10 +133,10 @@ class TodoFragment : Fragment() {
 
     private fun updatePhotoView() {
         if (mPhotoFile == null || !mPhotoFile!!.exists()) {
-            mPhotoView!!.setImageDrawable(null)
+            mPhotoView.setImageDrawable(null)
         } else {
             val bitmap = PictureUtils.getScaledBitmap(mPhotoFile!!.path, activity)
-            mPhotoView!!.setImageBitmap(bitmap)
+            mPhotoView.setImageBitmap(bitmap)
         }
     }
 
