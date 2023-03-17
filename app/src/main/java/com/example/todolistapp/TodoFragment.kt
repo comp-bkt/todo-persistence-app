@@ -51,7 +51,7 @@ class TodoFragment : Fragment() {
         */
         val todoId = requireArguments().getSerializable(ARG_TODO_ID) as UUID?
         mTodo = TodoModel.get(activity)!!.getTodo(todoId)
-        mPhotoFile = TodoModel.get(activity)!!.getPhotoFile(mTodo)
+        mPhotoFile = TodoModel.get(activity)!!.getPhotoFile(mTodo, context)
     }
 
     override fun onPause() {

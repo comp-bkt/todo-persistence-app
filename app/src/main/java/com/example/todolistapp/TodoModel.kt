@@ -13,24 +13,24 @@ internal class TodoModel private constructor(context: Context?) {
     //    private ArrayList<Todo> mTodoList;
     private val mDatabase: SQLiteDatabase
 
-    init {
-        mContext = context!!.applicationContext
-        mDatabase = TodoBaseHelper(mContext)
-                .writableDatabase
 
-//        mTodoList = new ArrayList<>();
+    init {
+        mDatabase = TodoBaseHelper(context!!.applicationContext)
+            .writableDatabase
+
+        //mTodoList = new ArrayList<>();
 
         // refactor to pattern for data plugins
         // simulate some data for testing
 
-// uncomment block for test data into the database
+        // uncomment block for test data into the database
         for (i in 0..29) {
             val todo = Todo()
             todo.title = "Todo title $i"
             todo.detail = "Detail for task " + todo.id.toString()
             todo.isComplete = false
             addTodo(todo)
-            //           mTodoList.add(todo);
+            //mTodoList.add(todo);
         }
     }
 
@@ -40,20 +40,22 @@ internal class TodoModel private constructor(context: Context?) {
 
         /* stop sql injection, pass uuidString to new String
         so, it is treated as string rather than code */
-        mDatabase.update(TodoDbSchema.TodoTable.NAME, values,
-                TodoDbSchema.TodoTable.Cols.UUID + " = ?", arrayOf(uuidString))
+        mDatabase.update(
+            TodoDbSchema.TodoTable.NAME, values,
+            TodoDbSchema.TodoTable.Cols.UUID + " = ?", arrayOf(uuidString)
+        )
     }
 
     private fun queryTodoList(whereClause: String?, whereArgs: Array<String>?): TodoCursorWrapper {
         //   private Cursor queryTodoList(String whereClause, String[] whereArgs) {
         val cursor = mDatabase.query(
-                TodoDbSchema.TodoTable.NAME,
-                null,  // null for all columns
-                whereClause,
-                whereArgs,
-                null,
-                null,
-                null
+            TodoDbSchema.TodoTable.NAME,
+            null,  // null for all columns
+            whereClause,
+            whereArgs,
+            null,
+            null,
+            null
         )
         return TodoCursorWrapper(cursor)
         //      return cursor;
@@ -78,7 +80,8 @@ internal class TodoModel private constructor(context: Context?) {
 
     fun getTodo(id: UUID?): Todo? {
         queryTodoList(
-                TodoDbSchema.TodoTable.Cols.UUID + " = ?", arrayOf(id.toString())).use { cursor ->
+            TodoDbSchema.TodoTable.Cols.UUID + " = ?", arrayOf(id.toString())
+        ).use { cursor ->
             if (cursor.count == 0) {
                 return null
             }
@@ -93,18 +96,18 @@ internal class TodoModel private constructor(context: Context?) {
         mDatabase.insert(TodoDbSchema.TodoTable.NAME, null, values)
     }
 
-    fun getPhotoFile(todo: Todo?): File {
-        val filesDir = mContext.filesDir
+    fun getPhotoFile(todo: Todo?, context: Context?): File {
+        val filesDir = context!!.filesDir
         return File(filesDir, todo!!.photoFilename)
     }
 
     companion object {
+
         private var sTodoModel: TodoModel? = null
-        private lateinit var mContext: Context
+
         operator fun get(context: Context?): TodoModel? {
-            mContext = context!!.applicationContext
             if (sTodoModel == null) {
-                sTodoModel = TodoModel(context)
+                sTodoModel = TodoModel(context!!.applicationContext)
             }
             return sTodoModel
         }
@@ -115,7 +118,10 @@ internal class TodoModel private constructor(context: Context?) {
             values.put(TodoDbSchema.TodoTable.Cols.TITLE, todo.title)
             values.put(TodoDbSchema.TodoTable.Cols.DETAIL, todo.detail)
             values.put(TodoDbSchema.TodoTable.Cols.DATE, todo.date.time)
-            values.put(TodoDbSchema.TodoTable.Cols.IS_COMPLETE, if (todo.isComplete == true) true else false)
+            values.put(
+                TodoDbSchema.TodoTable.Cols.IS_COMPLETE,
+                if (todo.isComplete == true) true else false
+            )
             return values
         }
     }
