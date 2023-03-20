@@ -10,18 +10,11 @@ import java.io.File
 import java.util.*
 
 internal class TodoModel private constructor(context: Context?) {
-    //    private ArrayList<Todo> mTodoList;
-    private val mDatabase: SQLiteDatabase
-
+    private val mDatabase:SQLiteDatabase
 
     init {
         mDatabase = TodoBaseHelper(context!!.applicationContext)
             .writableDatabase
-
-        //mTodoList = new ArrayList<>();
-
-        // refactor to pattern for data plugins
-        // simulate some data for testing
 
         // uncomment block for test data into the database
         for (i in 0..29) {
@@ -30,7 +23,6 @@ internal class TodoModel private constructor(context: Context?) {
             todo.detail = "Detail for task " + todo.id.toString()
             todo.isComplete = false
             addTodo(todo)
-            //mTodoList.add(todo);
         }
     }
 
@@ -47,7 +39,6 @@ internal class TodoModel private constructor(context: Context?) {
     }
 
     private fun queryTodoList(whereClause: String?, whereArgs: Array<String>?): TodoCursorWrapper {
-        //   private Cursor queryTodoList(String whereClause, String[] whereArgs) {
         val cursor = mDatabase.query(
             TodoDbSchema.TodoTable.NAME,
             null,  // null for all columns
@@ -58,15 +49,12 @@ internal class TodoModel private constructor(context: Context?) {
             null
         )
         return TodoCursorWrapper(cursor)
-        //      return cursor;
     }
 
     /* return mTodoList;
         return new ArrayList<>(); */
     val todoList: List<Todo>
         get() {
-            /* return mTodoList;
-        return new ArrayList<>(); */
             val todoList: MutableList<Todo> = ArrayList()
             queryTodoList(null, null).use { cursor ->
                 cursor.moveToFirst()
@@ -91,7 +79,6 @@ internal class TodoModel private constructor(context: Context?) {
     }
 
     private fun addTodo(todo: Todo) {
-//        mTodoList.add(todo);
         val values = getContentValues(todo)
         mDatabase.insert(TodoDbSchema.TodoTable.NAME, null, values)
     }

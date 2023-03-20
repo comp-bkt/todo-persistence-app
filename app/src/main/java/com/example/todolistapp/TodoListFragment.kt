@@ -35,11 +35,6 @@ class TodoListFragment : Fragment() {
     }
 
     private fun updateUI() {
-/*
-        ArrayList todoList = new ArrayList<>();
-        TodoModel todoModel = TodoModel.get(getContext());
-        todoList = todoModel.getTodoList();
- */
         val todoModel: TodoModel? = TodoModel.get(activity)
         val todoList = todoModel!!.todoList
         if (mTodoAdapter == null) {
