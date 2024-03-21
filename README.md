@@ -7,4 +7,4 @@
 * This changes the database implementation from the sqllitedatabase object, used in the kotlin branch, to a roomdatabase object.
 * Note that the db has been built with allowMainThreadQueries() to allow it to run on the mainUI thread
 ### compose branch
-* (still to create)
+* Code refactored to Compose (1st Draft)
