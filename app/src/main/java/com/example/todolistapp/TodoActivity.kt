@@ -3,31 +3,30 @@ package com.example.todolistapp
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
-import com.example.todolistapp.TodoActivity
-import java.util.*
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
+import androidx.compose.ui.Modifier
+import com.example.todolistapp.ui.TodoDetails
+import com.example.todolistapp.ui.theme.TodoListAppTheme
+import java.util.UUID
 
-class TodoActivity : AppCompatActivity() {
-    /*
-    To decouple the fragment and make it reusable, the TodoFragment has a newInstance method
-    that receives a todoId and returns the fragment
-     */
-    protected fun createFragment(): Fragment {
-        val todoId = intent.getSerializableExtra(EXTRA_TODO_ID) as UUID?
-        return TodoFragment.newInstance(todoId)
-    }
-
+class TodoActivity : ComponentActivity()  {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_fragment)
-        val fm = supportFragmentManager
-        val fragment = fm.findFragmentById(R.id.fragment_container)
-        if (fragment == null) {
-            val todoFragment = createFragment()
-            fm.beginTransaction()
-                    .add(R.id.fragment_container, todoFragment)
-                    .commit()
+        val todoId = intent.getSerializableExtra(EXTRA_TODO_ID, UUID::class.java)
+        setContent {
+            TodoListAppTheme {
+                // A surface container using the 'background' color from the theme
+                Surface(
+                    modifier = Modifier.fillMaxSize(),
+                    color = MaterialTheme.colorScheme.background
+                ) {
+                    TodoDetails(todoId!!)
+                }
+            }
         }
     }
 

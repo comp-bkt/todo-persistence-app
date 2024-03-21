@@ -1,4 +1,4 @@
-package database
+package com.example.todolistapp.database
 
 import java.util.*
 import androidx.room.ColumnInfo
@@ -13,8 +13,11 @@ data class Todo (
     @ColumnInfo(name = "title") var title: String? = null,
     @ColumnInfo(name = "detail") var detail: String? = null,
     @ColumnInfo(name = "date") var date: Date = Date(),
-    @ColumnInfo(name = "isComplete") var isComplete:Boolean = false) {
+    @ColumnInfo(name = "isComplete") var isComplete:Boolean = false)
+
+{
 
     val photoFilename: String
         get() = "img_$id.jpg"
+
 }
