@@ -40,7 +40,7 @@ import com.example.todolistapp.ui.theme.TodoListAppTheme
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TodoList(
-    todoViewModel: TodoViewModel = viewModel(),
+    todoViewModel: TodoListUIViewModel = viewModel(),
     modifier: Modifier = Modifier
 ) {
     val todoList =  todoViewModel.todos!!.observeAsState(emptyList())

@@ -56,7 +56,7 @@ import java.util.UUID
 @Composable
 fun TodoDetails(id: UUID) {
     val context = LocalContext.current
-    val todoModel: TodoViewModel = viewModel()
+    val todoModel: TodoDetailsUIViewModel = viewModel()
 
     val todo = todoModel.getTodo(id)?.observeAsState(null)
 
@@ -118,7 +118,7 @@ fun TodoDetails(id: UUID) {
 fun CameraTaker(
     todo: Todo?,
     context: Context,
-    todoModel: TodoViewModel,
+    todoModel: TodoDetailsUIViewModel,
     ) {
     val pictureLoaded = rememberSaveable {mutableStateOf(false)}
 

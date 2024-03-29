@@ -14,7 +14,6 @@ public class TodoRepository private constructor (application: Application)  {
 
     init {
         val mDatabase: AppDatabase = AppDatabase.getInstance(application)
-        //mDatabase = AppDatabase.getInstance(context!!)
         mTodoDao = mDatabase.todoDao()
         todoList = getAll()
     }
@@ -23,13 +22,9 @@ public class TodoRepository private constructor (application: Application)  {
         mTodoDao!!.updateTodo(todo!!)
     }
 
-    /* return mTodoList;
-        return new ArrayList<>(); */
     fun getAll() : LiveData<List<Todo>> {
-        //todoList = mTodoDao.getAll()
         return mTodoDao!!.getAll()
     }
-
 
     fun getTodo(id: UUID?): LiveData<Todo> {
         return mTodoDao!!.getTodoFor(id!!.toString())
@@ -38,7 +33,6 @@ public class TodoRepository private constructor (application: Application)  {
     suspend fun insert(todo: Todo) {
         mTodoDao!!.insert(todo)
     }
-
 
     companion object {
 
