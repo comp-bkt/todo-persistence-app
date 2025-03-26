@@ -1,15 +1,16 @@
 plugins {
-    id 'com.android.application'
-    id 'kotlin-android'
-    id 'kotlin-kapt'
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.kotlin.kapt)
 }
 
 android {
-    compileSdk 34
+    compileSdk 35
     defaultConfig {
         applicationId "com.example.todolistapp"
-        minSdkVersion 34
-        targetSdkVersion 34
+        minSdkVersion 35
+        targetSdkVersion 35
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
@@ -22,8 +23,8 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
     }
 
     buildFeatures {
@@ -31,45 +32,37 @@ android {
     }
 
     kotlinOptions {
-        jvmTarget=1.8
-    }
-    composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.1"
+        jvmTarget=11
     }
 
     namespace 'com.example.todolistapp'
 }
 
 dependencies {
-    implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation 'androidx.core:core-ktx:1.12.0'
-    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0'
-    testImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+    implementation(libs.androidx.core.ktx)
+    implementation(platform(libs.androidx.compose.bom))
+    implementation(libs.androidx.activity.compose)
+    implementation libs.androidx.lifecycle.viewmodel.ktx
+    implementation(libs.androidx.lifecycle.viewmodel.compose)
 
-    implementation("androidx.activity:activity-compose:1.8.2")
-    implementation(platform("androidx.compose:compose-bom:2023.10.01"))
-    implementation("androidx.compose.ui:ui")
-    implementation("androidx.compose.ui:ui-graphics")
-    implementation("androidx.compose.ui:ui-tooling-preview")
-    implementation("androidx.compose.material3:material3")
-    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.7.0")
-    implementation("androidx.compose.runtime:runtime-livedata:1.6.3")
-    implementation("io.coil-kt:coil-compose:2.6.0")
-    debugImplementation("androidx.compose.ui:ui-tooling")
-    debugImplementation("androidx.compose.ui:ui-test-manifest")
+    implementation(libs.androidx.ui)
+    implementation(libs.androidx.ui.graphics)
+    implementation(libs.androidx.ui.tooling.preview)
+    implementation(libs.androidx.material3)
 
-// Room components
-    implementation "androidx.room:room-runtime:2.6.1"
-    implementation "androidx.room:room-ktx:2.6.1"
-    kapt "androidx.room:room-compiler:2.6.1"
-    androidTestImplementation "androidx.room:room-testing:2.6.1"
+    implementation(libs.androidx.runtime.livedata)
+    debugImplementation(libs.androidx.ui.tooling)
 
-// Lifecycle components
-    implementation "androidx.lifecycle:lifecycle-extensions:2.2.0"
+    implementation(libs.coil.compose)
 
-// Testing
-    androidTestImplementation "androidx.arch.core:core-testing:2.2.0"
+    implementation libs.androidx.room.runtime
+    implementation libs.androidx.room.ktx
+    kapt libs.androidx.room.compiler
+    androidTestImplementation libs.androidx.room.testing
+    androidTestImplementation libs.androidx.core.testing
+
+    testImplementation libs.junit
+    androidTestImplementation libs.androidx.junit
+    androidTestImplementation libs.androidx.espresso.core
 
 }
